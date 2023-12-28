@@ -36,7 +36,32 @@ const blurHeader = () =>{
 window.addEventListener('scroll', blurHeader)
 
 /*=============== EMAIL JS ===============*/
+const contactForm = document.getElementById('contact-form'),
+      contactMessage = document.getElementById('contact-message')
 
+const sendEmail = (e) =>{
+    e.preventDefault()
+    
+    //serviceID - templateID - #form - publicKey
+    emailjs.sendForm('masatemma', 'template_ypr6r36', '#contact-form', 'Dg4e0C8G5FZrxFhBs')
+        .then(() =>{
+            // Show sent message
+            contactMessage.textContent = 'Message sent successfully ✅'
+
+            //remove message after 
+            setTimeout(() =>{
+                contactMessage.textContent = ''
+            }, 5000)
+
+            //Clear input fields in the contact form
+            contactForm.reset()
+        }, () =>{
+            // Show error message
+            contactMessage.textContent = 'Message not sent (service error) ❌'
+        })
+}
+
+contactForm.addEventListener('submit', sendEmail);
 
 /*=============== SHOW SCROLL UP ===============*/ 
 
